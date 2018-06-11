@@ -16,16 +16,6 @@ import java.util.List;
  */
 public interface MessageRepository extends JpaRepository<CoreMessage,Integer> {
 
-    //    ORDER BY [message_id] desc
-    //    OFFSET 10 ROWS -- skip 10 rows0000000
-    //    FETCH NEXT 10 ROWS ONLY -- take 10 rows
-    //order by ms.messageId desc
-
-//    @Query("select ms from CoreMessage ms where ms.chatRoom.chatId = :chatId order by ms.messageId desc ")
-//    List<CoreMessage> findByChatId(@Param("chatId") Integer chatId);
-
-
-
     @Query("select new server.model.MessageModel(ms.messageId,ms.messageContext,ms.messageDate,ms.messagePath,ms.messageType) from CoreMessage ms  where ms.chatRoom.chatId = :chatId")
     Page<MessageModel> findByChatId(@Param("chatId") Integer chatId, Pageable pageRequest);
 
